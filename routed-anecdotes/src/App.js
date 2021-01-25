@@ -5,7 +5,7 @@ import {
   Switch, Route, Link, useParams, useHistory
 } from "react-router-dom"
 
-const Menu = () => {
+const Menu = ({notification}) => {
   const padding = {
     paddingRight: 5
   }
@@ -14,7 +14,11 @@ const Menu = () => {
       <Link to='/' style={padding}>anecdotes</Link>
       <Link to='/create' style={padding}>create new</Link>
       <Link to='/about' style={padding}>about</Link>
+      <div>
+      {notification}
+    </div>      
     </div>
+
   )
 }
 
@@ -125,6 +129,8 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification("Added anecdote: " + anecdote.content + "!!!")
+    setTimeout(() => {setNotification("")}, 10000)
   }
 
   const anecdoteById = (id) =>
@@ -145,11 +151,11 @@ const App = () => {
     <Router>
       <div>
         <h1>Software anecdotes</h1>
-        <Menu />
+        <Menu notification={notification}/>
 
         <Switch>
           <Route path="/create">
-            <CreateNew addNew={addNew} />
+            <CreateNew addNew={addNew}/>
           </Route>
           <Route path="/about">
             <About />
