@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import  { useField } from './hooks'
 
 import {
   BrowserRouter as Router,
@@ -65,23 +66,34 @@ const Footer = () => (
   </div>
 )
 
+const Input = (struct) => {
+  return (<input onChange={struct.onChange} value={struct.value}></input>)
+}
+
 const CreateNew = (props) => {
   const history = useHistory()
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+
+  const content = useField('content')
+  const author = useField('author')
+  const info = useField('info')
+  
+  // const [content, setContent] = useState('')
+  // const [author, setAuthor] = useState('')
+  // const [info, setInfo] = useState('')
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
     history.push('/');
   }
+
+
 
   return (
     <div>
@@ -89,17 +101,17 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <Input {...content}/>
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <Input {...author}/>
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+          <Input {...info}/>
         </div>
-        <button>create</button>
+        <button>create</button><button onClick={(e ) => {e.preventDefault(); content.reset(); author.reset(); info.reset()}} >reset</button>
       </form>
     </div>
   )
@@ -107,6 +119,9 @@ const CreateNew = (props) => {
 }
 
 const App = () => {
+
+  const username = useField('text')
+
   const [anecdotes, setAnecdotes] = useState([
     {
       content: 'If it hurts, do it more often',
