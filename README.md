@@ -6,7 +6,7 @@
 - [x] 7.4 / routed-anecdotes
 - [x] 7.5 / routed-anecdotes
 - [x] 7.6 / routed-anecdotes
-- [ ] 7.7 / country-hook / before UseEffect implemented, nothing is working
+- [x] 7.7 / country-hook / before UseEffect implemented, nothing is working
 - [ ] 7.8
 - [ ] 7.9
 - [ ] 7.10 
