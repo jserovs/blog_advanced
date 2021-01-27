@@ -7,8 +7,8 @@
 - [x] 7.5 / routed-anecdotes
 - [x] 7.6 / routed-anecdotes
 - [x] 7.7 / country-hook / before UseEffect implemented, nothing is working
-- [ ] 7.8
-- [ ] 7.9
+- [x] 7.8 / ultimate-hooks / `[baseUrl]` didn't work first time :(
+- [x] 7.9 / fullstack-bloglist-frontend || https://github.com/jserovs/fullstack-bloglist-frontend/tree/part7
 - [ ] 7.10 
 - [ ] 7.11 
 - [ ] 7.12 
