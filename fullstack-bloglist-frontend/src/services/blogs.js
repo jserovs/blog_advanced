@@ -37,9 +37,6 @@ const likeBlog = (blog, like, userToken) => {
 
 const deleteBlog = (blog, userToken) => {
 
-  console.log('blog:' + blog)
-  console.log('userToken:' + userToken)
-
   const request = axios.delete(baseUrl + '/'+blog.id,
     {
       headers: {

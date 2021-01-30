@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import Togglable from './Togglable'
+import { useDispatch } from 'react-redux'
+import { likeBlog, removeBlog } from '../reducers/blogsReducer'
 
 
-const Blog = ({ blog, likeBlog, deleteBlog }) => {
+const Blog = ({ blog, loginToken }) => {
+
+  const dispatch = useDispatch()
 
   const blogStyle = {
     paddingTop: 10,
@@ -27,8 +31,8 @@ const Blog = ({ blog, likeBlog, deleteBlog }) => {
 
       <Togglable buttonLabel='show details' ref={ref}>
         <div className='blogUrl'>{blog.url}</div>
-        <div className='blogLikes'>likes: {blog.likes} <button onClick={likeBlog}>like</button></div>
-        <div><button onClick={deleteBlog}>remove</button></div>
+        <div className='blogLikes'>likes: {blog.likes} <button onClick={() => dispatch(likeBlog(blog , loginToken))} >like</button></div>
+        <div><button onClick={() => dispatch(removeBlog(blog, loginToken))}>remove</button></div>
       </Togglable>
     </div>
   )

@@ -110,7 +110,7 @@ describe('Blog app', function () {
     })
 
 
-    it.only('Blogs sorted based on likes', function () {
+    it('Blogs sorted based on likes', function () {
 
       cy.contains('add blog').click()
       cy.get('#title').type('more click to be')

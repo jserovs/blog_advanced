@@ -9,8 +9,8 @@
 - [x] 7.7 / country-hook / before UseEffect implemented, nothing is working
 - [x] 7.8 / ultimate-hooks / `[baseUrl]` didn't work first time :(
 - [x] 7.9 / fullstack-bloglist-frontend || https://github.com/jserovs/fullstack-bloglist-frontend/tree/part7
-- [ ] 7.10 
-- [ ] 7.11 
+- [x] 7.10 
+- [x] 7.11 
 - [ ] 7.12 
 - [ ] 7.13 
 - [ ] 7.14 

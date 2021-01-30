@@ -3,7 +3,6 @@ import Blog from './components/Blog'
 import Button from './components/Button'
 import MessageBox from './components/MessageBox'
 import NewBlogForm from './components/NewBlogForm'
-import blogService from './services/blogs'
 import userService from './services/users'
 import { useDispatch, useSelector } from 'react-redux'
 import { showNotification, showError, clearNotification } from './reducers/messageReducer'
@@ -11,24 +10,20 @@ import { fetchBlogs } from './reducers/blogsReducer'
 import { addBlog } from './reducers/blogsReducer'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  // const [blogs, setBlogs] = useState([])
 
   //implementing redux
   const dispatch = useDispatch()
+
   const reduxBlogs = useSelector(state => state.blogs, () => {})
 
   useEffect(() => {    
-    blogService.getAll().then(blogs => {
-      dispatch(fetchBlogs(blogs))
-      setBlogs(blogs)
-    }
-    )
+      dispatch(fetchBlogs())
   }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('BlogUser')
     if (loggedUserJSON) {
-
       const blogUser = JSON.parse(loggedUserJSON)
       setUser(blogUser.name)
       setLoginToken(blogUser.token)
@@ -54,26 +49,6 @@ const App = () => {
     setPassword(event.target.value)
   }
 
-  const likeBlog = (blog) => {
-    blogService.likeBlog(blog, 1, loginToken)
-      .then((postCall) => {
-        console.log(JSON.stringify(postCall))
-        const copy = [...blogs]
-        copy[copy.findIndex((element) => element.id === blog.id)].likes++
-        setBlogs(copy)
-      })
-  }
-
-  const deleteBlog = (blog) => {
-    blogService.deleteBlog(blog, loginToken)
-      .then((deleteCall) => {
-        console.log(JSON.stringify(deleteCall))
-        const copy = [...blogs]
-        copy.splice(copy.findIndex((element) => element.id === blog.id), 1)
-        setBlogs(copy)
-      })
-  }
-
   const loginButtonClicked = (event) => {
     event.preventDefault()
 
@@ -87,7 +62,6 @@ const App = () => {
       .catch(error => {
         console.log(error)
         dispatch(showError('Wrong credentials'))
-        // setMessage({ text: 'Wrong credentials', style: 'error' })
       })
 
   }
@@ -103,9 +77,9 @@ const App = () => {
 
   const addBlogClicked = (event) => {
     event.preventDefault()
-
     setBlogAddForm(true)
   }
+
 
   const createBlog = (newBlog) => {
 
@@ -115,33 +89,16 @@ const App = () => {
       var blogUser = JSON.parse(loggedUserJSON)
     }
 
-    blogService.saveBlog(newBlog.title, newBlog.author, newBlog.url, loginToken)
-      .then((result) => {
-        newBlog = {
-          id: result.id,
-          title: result.title,
-          author: result.author,
-          url: result.url,
-          likes: 0,
-          user: {
-            username: blogUser.username,
-            name: blogUser.name,
-            id: result.user
-          }
-        }
-        console.log(newBlog);
-        dispatch(addBlog(newBlog))
-        // setBlogs([...blogs,newBlog])
-        dispatch(showNotification('BLOG: ' + result.title + ' by ' + result.author + ' added sucesfully!'))
-        // setMessage({ text: 'BLOG: ' + result.title + ' by ' + result.author + ' added sucesfully!', style: 'notification' })
-        setBlogAddForm(false)
-      })
+    dispatch(addBlog(newBlog, blogUser))
+    // setBlogs([...blogs,newBlog])
+    dispatch(showNotification('BLOG: ' + newBlog.title + ' by ' + newBlog.author + ' added sucesfully!'))
+    // setMessage({ text: 'BLOG: ' + result.title + ' by ' + result.author + ' added sucesfully!', style: 'notification' })
+    setBlogAddForm(false)
 
-      .catch(error => {
-        console.log(error)
-        dispatch(showError('blog could not be added'))
-        // setMessage({ text: 'blog could not be added', style: 'error' })
-      })
+    
+        // dispatch(showError('blog could not be added'))
+        // // setMessage({ text: 'blog could not be added', style: 'error' })
+
   }
 
   const loginForm = () => {
@@ -171,7 +128,7 @@ const App = () => {
         <div id='blogs'>
           {reduxBlogs.sort((a,b) => { return b.likes - a.likes }).map(blog => {
             if (blog.user.name === user) {
-              return (<Blog key={blog.id} blog={blog} likeBlog={() => likeBlog(blog)} deleteBlog={() => deleteBlog(blog)} />)
+              return (<Blog key={blog.id} blog={blog} loginToken={loginToken}/>)
             }
           }
           )}
