@@ -5,7 +5,7 @@ const initialState = []
 const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
 
-        case 'FETCH_BLOGS':
+        case 'INIT_BLOGS':
             return payload.blogs
 
         case 'ADD_BLOG':
@@ -36,11 +36,11 @@ const reducer = (state = initialState, { type, payload }) => {
 
 export default reducer
 
-export const fetchBlogs = () => {
+export const initBlogs = () => {
     return async dispatch => {
         const blogs = await blogService.getAll()
         dispatch({
-            type: 'FETCH_BLOGS',
+            type: 'INIT_BLOGS',
             payload: {
                 blogs
             }
