@@ -6,6 +6,10 @@ const MessageBox = () => {
 
   const notification = useSelector(state => state.notifications, () => {})
 
+  if (!notification) {
+    return
+  }
+
   return (
     <div className="container">
       {(notification && 

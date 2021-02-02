@@ -53,7 +53,7 @@ const Blog = ({ loginToken }) => {
       {/* <Togglable buttonLabel='show details' ref={ref}> */}
       <div className='blogUrl'>{blog.url}</div>
       <div className='blogLikes'>likes: {blog.likes} <button onClick={() => dispatch(likeBlog(blog, loginToken))} >like</button></div>
-      <div><button onClick={() => dispatch(removeBlog(blog, loginToken))}>remove</button></div>
+      {/* <div><button onClick={() => dispatch(removeBlog(blog, loginToken))}>remove</button></div> */}
       {/* </Togglable> */}
       <h3>Comments</h3>
       <form>

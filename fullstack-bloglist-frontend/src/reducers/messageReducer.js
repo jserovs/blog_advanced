@@ -18,7 +18,7 @@ export default reducer
 export const showError = (text) => {
   return async dispatch => {
 
-    await setTimeout(() => {dispatch({ type: 'REMOVE_MESSAGE' })}, 3000)
+    await setTimeout(() => {dispatch({ type: 'REMOVE_MESSAGE' })}, 5000)
 
     dispatch({
       type: 'SHOW_ERROR',
@@ -35,12 +35,12 @@ export const showNotification = (text) => {
 
   return async dispatch => {
 
-    await setTimeout(() => {dispatch({ type: 'REMOVE_MESSAGE' })}, 1000)
+    await setTimeout(() => {dispatch({ type: 'REMOVE_MESSAGE' })}, 5000)
     dispatch({
       type: 'SHOW_NOTIFICATION',
       payload: {
         text: text,
-        style: 'sucess'
+        style: 'success'
       }
     })
   }

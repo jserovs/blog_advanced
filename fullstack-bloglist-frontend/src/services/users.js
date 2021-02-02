@@ -13,7 +13,7 @@ const postLogin = (username, password) => {
     username: username,
     password: password
   })  
-  return request.then((response) => {console.log(response); return response.data})
+  return request.then((response) => { return response.data})
 }
 
 export default { getAll, postLogin }

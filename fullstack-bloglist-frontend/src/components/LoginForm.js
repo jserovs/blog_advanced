@@ -31,7 +31,6 @@ const LoginForm = () => {
             dispatch(clearNotification())
           })
           .catch(error => {
-            console.log(error)
             dispatch(showError('Wrong credentials'))
           })
     
