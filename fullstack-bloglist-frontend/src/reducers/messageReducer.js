@@ -24,7 +24,7 @@ export const showError = (text) => {
       type: 'SHOW_ERROR',
       payload: {
         text: text,
-        style: 'error'
+        style: 'danger'
       }
     })
 
@@ -40,7 +40,7 @@ export const showNotification = (text) => {
       type: 'SHOW_NOTIFICATION',
       payload: {
         text: text,
-        style: 'notification'
+        style: 'sucess'
       }
     })
   }
