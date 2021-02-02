@@ -20,5 +20,5 @@
 - [x] 7.18 / fullstack-bloglist-frontend
 - [x] 7.19 / fullstack-bloglist-frontend
 - [x] 7.20 / fullstack-bloglist-frontend
-- [x] 7.21 / I can not :(
+- [x] 7.21 / I can not comment on Moodle:(
 
