@@ -22,6 +22,15 @@ const saveBlog = (title, author, url, userToken) => {
   return request.then(response => response.data)
 }
 
+const commentBlog = (blog, comment) => {
+
+  const request = axios.post(baseUrl + '/'+blog.id+'/comment',
+    { comment: comment })
+
+  return request.then(response => response.data)
+
+}
+
 const likeBlog = (blog, like, userToken) => {
 
   const request = axios.put(baseUrl + '/'+blog.id,
@@ -49,5 +58,4 @@ const deleteBlog = (blog, userToken) => {
   return request.then(response => response.data)
 
 }
-
-export default { getAll, saveBlog, likeBlog, deleteBlog }
+export default { getAll, saveBlog, likeBlog, deleteBlog, commentBlog }
