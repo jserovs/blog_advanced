@@ -16,7 +16,7 @@ import userService from './services/users'
 
 import {
   BrowserRouter as Router,
-  Switch, Route
+  Switch, Route, Link
 } from "react-router-dom"
 import { Navbar, Nav } from 'react-bootstrap'
 
@@ -79,7 +79,7 @@ const App = () => {
         <div id='blogs'>
           {reduxBlogs.sort((a, b) => { return b.likes - a.likes }).map(blog => {
             if (blog.user.name === reduxUser.name) {
-              return (<Blog key={blog.id} blog={blog} loginToken={reduxUser.token} />)
+              return (<div key={blog.id}><Link to={'/blogs/'+blog.id}>{blog.title}</Link></div> )
             }
           })}
         </div>
@@ -97,12 +97,15 @@ const App = () => {
         {reduxUser === null ?
           <LoginForm /> :
           <Navbar bg='light'>
-          <Nav.Link href="/blogs/">Blogs</Nav.Link>
-          <Nav.Link href="/users/">Users</Nav.Link>
-          <div>{reduxUser.name} is logged!!! <Button text='logout' handleClick={signOut} /></div>
-          </Navbar>          
+            <Nav.Link href="/blogs">Blogs</Nav.Link>
+            <Nav.Link href="/users">Users</Nav.Link>
+            <div>{reduxUser.name} is logged!!! <Button text='logout' handleClick={signOut} /></div>
+          </Navbar>
         }
         <Switch>
+          <Route path="/blogs/:id">
+            <Blog/>
+          </Route>
           <Route path="/users/:id">
             <UserDetails users={users} />
           </Route>
