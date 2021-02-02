@@ -18,6 +18,7 @@ import {
   BrowserRouter as Router,
   Switch, Route
 } from "react-router-dom"
+import { Navbar, Nav } from 'react-bootstrap'
 
 const App = () => {
 
@@ -88,12 +89,18 @@ const App = () => {
 
   return (
     <Router>
+
       <div className="container">
+
         <h1>blogs</h1>
         <MessageBox />
         {reduxUser === null ?
           <LoginForm /> :
+          <Navbar bg='light'>
+          <Nav.Link href="/blogs/">Blogs</Nav.Link>
+          <Nav.Link href="/users/">Users</Nav.Link>
           <div>{reduxUser.name} is logged!!! <Button text='logout' handleClick={signOut} /></div>
+          </Navbar>          
         }
         <Switch>
           <Route path="/users/:id">
