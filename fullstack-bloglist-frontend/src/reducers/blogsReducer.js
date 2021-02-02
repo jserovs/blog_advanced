@@ -9,7 +9,6 @@ const reducer = (state = initialState, { type, payload }) => {
             return payload.blogs
 
         case 'ADD_BLOG':
-            console.log("reducer" + JSON.stringify(payload))
             return [...state, payload.blog]
 
         case 'LIKE_BLOG':
@@ -61,8 +60,6 @@ export const initBlogs = () => {
 
 export const addBlog = (blog, user) => {
     return async dispatch => {
-        console.log("saveBlog")
-        console.log(JSON.stringify(user))
         const result = await blogService.saveBlog(blog.title, blog.author, blog.url, user.token);
         const userId = result.user
         result.user = {

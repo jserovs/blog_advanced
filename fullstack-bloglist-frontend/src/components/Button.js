@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
-const Button = (props) => (
-  <button onClick={props.handleClick}>
+const CustButton = (props) => (
+  <Button variant={props.variant} onClick={props.handleClick} size={props.size}>
     {props.text}
-  </button>
+  </Button>
 )
 
-export default Button
+export default CustButton

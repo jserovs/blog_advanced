@@ -7,8 +7,6 @@ const getAll = () => {
 }
 
 const saveBlog = (title, author, url, userToken) => {
-
-  console.log (title)
   const request = axios.post(baseUrl, {
     title: title,
     author: author,

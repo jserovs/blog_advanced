@@ -11,7 +11,7 @@ const UserListing = ({ users }) => {
     return (
         <div>
             <h2>Users</h2>
-            <Table striped>
+            <Table striped hover>
                 <thead>
                     <tr>
                         <th>Name</th>

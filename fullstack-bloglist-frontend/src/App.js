@@ -18,7 +18,7 @@ import {
   BrowserRouter as Router,
   Switch, Route, Link
 } from "react-router-dom"
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav, ListGroup } from 'react-bootstrap'
 
 const App = () => {
 
@@ -73,16 +73,20 @@ const App = () => {
 
   const blogList = () => {
     return (
-      <div>
-        {!blogAddForm && <Button text='add blog' handleClick={showAddBlogClicked} />}
+      <div>        
         {blogAddForm && <NewBlogForm createBlog={createBlog} setBlogAddForm={setBlogAddForm} />}
-        <div id='blogs'>
+        <ListGroup>
           {reduxBlogs.sort((a, b) => { return b.likes - a.likes }).map(blog => {
             if (blog.user.name === reduxUser.name) {
-              return (<div key={blog.id}><Link to={'/blogs/'+blog.id}>{blog.title}</Link></div> )
+              return (<ListGroup.Item action variant="light" href={'/blogs/'+blog.id}>
+                {/* <div key={blog.id}><Link to={'/blogs/'+blog.id}> */}
+                  {blog.title}s
+                  {/* </Link></div> */}
+                </ListGroup.Item> )
             }
           })}
-        </div>
+        </ListGroup>
+        {!blogAddForm && <Button size='lg' variant='secondary' text='add blog' handleClick={showAddBlogClicked} />}
       </div>
     )
   }
@@ -99,7 +103,7 @@ const App = () => {
           <Navbar bg='light'>
             <Nav.Link href="/blogs">Blogs</Nav.Link>
             <Nav.Link href="/users">Users</Nav.Link>
-            <div>{reduxUser.name} is logged!!! <Button text='logout' handleClick={signOut} /></div>
+            <div>{reduxUser.name} is logged!!! <Button size='sm' text='logout' variant='danger'  onClick={signOut} /></div>
           </Navbar>
         }
         <Switch>

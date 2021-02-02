@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 // import Togglable from './Togglable'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import Button from './Button'
+// import CustButton from './CustButton'
+import { FormControl, Button, ListGroup, InputGroup, Card } from 'react-bootstrap'
 import { commentBlog, likeBlog, removeBlog } from '../reducers/blogsReducer'
 
 
@@ -15,7 +16,7 @@ const Blog = ({ loginToken }) => {
   const dispatch = useDispatch()
   const reduxBlogs = useSelector(state => state.blogs, () => { })
 
-  const blog = reduxBlogs.find((blog) => blog.id === id )
+  const blog = reduxBlogs.find((blog) => blog.id === id)
 
   if (!blog) {
     return <div>not found</div>
@@ -28,13 +29,14 @@ const Blog = ({ loginToken }) => {
   const addCommentClicked = (event) => {
     event.preventDefault()
     dispatch(commentBlog(blog, comment))
+    setComment('')
   }
 
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
+    // border: 'solid',
+    borderWidth: 0,
     marginBottom: 5
   }
 
@@ -46,26 +48,36 @@ const Blog = ({ loginToken }) => {
 
 
   return (
-    <div className='blogEntry' id={blog.id} style={blogStyle}>
-      <div className='blogTitle' style={blogTitle}>{blog.title}</div>
-      <div className='blogAuthor'>{blog.author}</div>
-
-      {/* <Togglable buttonLabel='show details' ref={ref}> */}
-      <div className='blogUrl'>{blog.url}</div>
-      <div className='blogLikes'>likes: {blog.likes} <button onClick={() => dispatch(likeBlog(blog, loginToken))} >like</button></div>
-      {/* <div><button onClick={() => dispatch(removeBlog(blog, loginToken))}>remove</button></div> */}
-      {/* </Togglable> */}
+    <div>
+      <Card >
+        <Card.Body>
+          <Card.Title>{blog.title}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{blog.author}</Card.Subtitle>
+          <Card.Text>likes: {blog.likes} <Button size="sm" variant="success" onClick={() => dispatch(likeBlog(blog, loginToken))} >like</Button></Card.Text>
+          <Card.Link href="{blog.url}">Go To</Card.Link>
+        </Card.Body>
+      </Card>
       <h3>Comments</h3>
       <form>
-          <div>
-            <input id='comment' type='text' value={comment} onChange={handleCommentChange} />
-          </div>
-          <div>
-            <Button text='Add comment' handleClick={addCommentClicked} />
-          </div>
-        </form>
-      {blog.comments.map((element, index)  => { return <li key={index}>{element}</li> })}
+        <div>
+          <InputGroup className="mb-3">
+            <FormControl
+              placeholder="Your blog comment"
+              aria-describedby="basic-addon2"
+              value={comment} onChange={handleCommentChange}
+            />
+            <InputGroup.Append>
+              <Button variant="outline-secondary" onClick={addCommentClicked}>Comment</Button>
+            </InputGroup.Append>
+          </InputGroup>
+
+        </div>
+      </form>
+      <ListGroup variant='flush'>
+        {blog.comments.map((element, index) => { return <ListGroup.Item key={index}>{element}</ListGroup.Item> })}
+      </ListGroup>
     </div>
+
   )
 
 }
