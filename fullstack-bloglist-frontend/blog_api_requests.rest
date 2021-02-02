@@ -1,0 +1,35 @@
+POST http://localhost:3001/api/users HTTP/1.1
+content-type: application/json
+
+{
+  "username": "tester",
+  "name": "The Test User",
+  "password": "powerOFBest"
+}
+
+###
+
+POST http://localhost:3001/api/blogs HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBvd2VyMSIsImlkIjoiNjAxODNkMzhkOTY1NWY1NjVlYWIxMzQwIiwiaWF0IjoxNjEyMjA1ODU3fQ.sHR2aQKhyjWxKgeFOLeKduPLtq0FOqr-_l6IZjxNrzA
+
+{
+    "title": "pust_to_user",
+    "author": "Jevgenijs Serovs",
+    "url": "https://mongoosejs.com/docs/populate.html#refs-to-children",
+    "likes": 99
+}
+
+###
+
+GET http://localhost:3001/api/users HTTP/1.1
+
+###
+
+POST http://localhost:3001/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username": "power",  
+  "password": "powerOFBest"
+}
