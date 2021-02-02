@@ -8,22 +8,17 @@
 - [x] 7.6 / routed-anecdotes
 - [x] 7.7 / country-hook / before UseEffect implemented, nothing is working
 - [x] 7.8 / ultimate-hooks / `[baseUrl]` didn't work first time :(
-- [x] 7.9 / fullstack-bloglist-frontend || https://github.com/jserovs/fullstack-bloglist-frontend/tree/part7
-- [x] 7.10 
-- [x] 7.11 
-- [ ] 7.12 
-- [ ] 7.13 
-- [ ] 7.14 
-- [ ] 7.15 
-- [ ] 7.16 
-- [ ] 7.17 
-- [ ] 7.18 
-- [ ] 7.19 
-- [ ] 7.20 
-- [ ] 7.21 
-- [ ] 7.22
-- [ ] 7.23
-- [ ] 7.24
-- [ ] 7.25
-- [ ] 7.26
-- [ ] 7.27
+- [x] 7.9 / fullstack-bloglist-frontend 
+- [x] 7.10 / fullstack-bloglist-frontend
+- [x] 7.11 / fullstack-bloglist-frontend
+- [x] 7.12 / fullstack-bloglist-frontend
+- [x] 7.13 / fullstack-bloglist-frontend
+- [x] 7.14 / fullstack-bloglist-frontend
+- [x] 7.15 / fullstack-bloglist-frontend
+- [x] 7.16 / fullstack-bloglist-frontend
+- [x] 7.17 / fullstack-server-structure
+- [x] 7.18 / fullstack-bloglist-frontend
+- [x] 7.19 / fullstack-bloglist-frontend
+- [x] 7.20 / fullstack-bloglist-frontend
+- [x] 7.21 / I can not :(
+
