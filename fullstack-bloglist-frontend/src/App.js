@@ -11,6 +11,8 @@ import { addBlog } from './reducers/blogsReducer'
 import { logIn, logOut } from './reducers/userReducer'
 import LoginForm from './components/LoginForm'
 import UserListing from './components/UserListing'
+import UserDetails from './components/UserDetails'
+import userService from './services/users'
 
 import {
   BrowserRouter as Router,
@@ -18,7 +20,17 @@ import {
 } from "react-router-dom"
 
 const App = () => {
-  // const [blogs, setBlogs] = useState([])
+
+  const [users, setUsers] = useState([])
+
+
+  useEffect(() => {
+    userService.getAll().then((res) => {
+      setUsers(res)
+    }
+    )
+
+  }, [])
 
   //implementing redux
   const dispatch = useDispatch()
@@ -84,8 +96,11 @@ const App = () => {
           <div>{reduxUser.name} is logged!!! <Button text='logout' handleClick={signOut} /></div>
         }
         <Switch>
+          <Route path="/users/:id">
+            <UserDetails users={users} />
+          </Route>
           <Route path="/users">
-            {reduxUser !== null && <UserListing />}
+            {reduxUser !== null && <UserListing users={users} />}
           </Route>
           <Route>
             {reduxUser !== null && blogList()}

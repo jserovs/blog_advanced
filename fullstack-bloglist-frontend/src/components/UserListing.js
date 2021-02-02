@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import userService from '../services/users'
+import React from 'react'
 import { Table } from 'react-bootstrap'
+import { Link } from "react-router-dom"
 
-const UserListing = () => {
+const UserListing = ({ users }) => {
 
-    const [users, setUsers] = useState([])
-
-
-    useEffect(() => {
-        const usersFromApi = userService.getAll().then((res) => {
-            console.log(JSON.stringify(res))
-            setUsers(res)
-        }
-        )
-
-    }, [])
-
+    const padding = {
+        paddingRight: 5
+    }
 
     return (
         <div>
@@ -23,20 +14,19 @@ const UserListing = () => {
             <Table striped>
                 <thead>
                     <tr>
-                    <th>Name</th>
-                    <th>Username</th>
-                    <th>Blogs created</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Blogs created</th>
                     </tr>
-                    </thead>
+                </thead>
                 <tbody>
                     {users.map((element, index) => {
-                        console.log(JSON.stringify(element.blogs.length))
                         return (
-                        <tr key={index}>
-                            <td> {element.name} </td>
-                            <td> {element.username} </td>
-                            <td> {element.blogs.length} </td>
-                        </tr>)
+                            <tr key={index}>
+                                <td><Link to={'/users/'+element.id} style={padding}>{element.name}</Link></td>
+                                <td> {element.username} </td>
+                                <td> {element.blogs.length} </td>
+                            </tr>)
                     })}
 
                 </tbody>
