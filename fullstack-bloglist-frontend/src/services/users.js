@@ -12,8 +12,8 @@ const postLogin = (username, password) => {
   const request = axios.post(loginAPI, {
     username: username,
     password: password
-  })
-  return request.then(response => response.data)
+  })  
+  return request.then((response) => {console.log(response); return response.data})
 }
 
 export default { getAll, postLogin }

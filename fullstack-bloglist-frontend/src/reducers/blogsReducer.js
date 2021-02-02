@@ -48,13 +48,15 @@ export const initBlogs = () => {
     }
 }
 
-export const addBlog = (blog, addUser) => {
+export const addBlog = (blog, user) => {
     return async dispatch => {
-        const result = await blogService.saveBlog(blog.title, blog.author, blog.url, addUser.token);
+        console.log ("saveBlog")
+        console.log (JSON.stringify(user))
+        const result = await blogService.saveBlog(blog.title, blog.author, blog.url, user.token);
         const userId = result.user
         result.user= {
-            username: addUser.username,
-            name: addUser.name,
+            username: user.username,
+            name: user.name,
             id: userId
         }
         dispatch({

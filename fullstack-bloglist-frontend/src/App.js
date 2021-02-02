@@ -10,6 +10,12 @@ import { initBlogs } from './reducers/blogsReducer'
 import { addBlog } from './reducers/blogsReducer'
 import { logIn, logOut } from './reducers/userReducer'
 import LoginForm from './components/LoginForm'
+import UserListing from './components/UserListing'
+
+import {
+  BrowserRouter as Router,
+  Switch, Route
+} from "react-router-dom"
 
 const App = () => {
   // const [blogs, setBlogs] = useState([])
@@ -17,11 +23,11 @@ const App = () => {
   //implementing redux
   const dispatch = useDispatch()
 
-  const reduxBlogs = useSelector(state => state.blogs, () => {})
-  const reduxUser = useSelector(state => state.user, () => {})
+  const reduxBlogs = useSelector(state => state.blogs, () => { })
+  const reduxUser = useSelector(state => state.user, () => { })
 
-  useEffect(() => {    
-      dispatch(initBlogs())
+  useEffect(() => {
+    dispatch(initBlogs())
   }, [])
 
   useEffect(() => {
@@ -30,13 +36,13 @@ const App = () => {
       const blogUser = JSON.parse(loggedUserJSON).result
       dispatch(logIn(blogUser))
     }
-  },[])
+  }, [])
 
   const [blogAddForm, setBlogAddForm] = useState(false)
 
   const signOut = (event) => {
     window.localStorage.clear()
-    dispatch(logOut())   
+    dispatch(logOut())
 
   }
 
@@ -46,12 +52,8 @@ const App = () => {
 
 
   const createBlog = (newBlog) => {
-    const loggedUserJSON = window.localStorage.getItem('BlogUser')
-    if (loggedUserJSON) {
 
-      var blogUser = JSON.parse(loggedUserJSON)
-    }
-    dispatch(addBlog(newBlog, blogUser))
+    dispatch(addBlog(newBlog, reduxUser))
     dispatch(showNotification('BLOG: ' + newBlog.title + ' by ' + newBlog.author + ' added sucesfully!'))
     setBlogAddForm(false)
   }
@@ -62,9 +64,9 @@ const App = () => {
         {!blogAddForm && <Button text='add blog' handleClick={showAddBlogClicked} />}
         {blogAddForm && <NewBlogForm createBlog={createBlog} setBlogAddForm={setBlogAddForm} />}
         <div id='blogs'>
-          {reduxBlogs.sort((a,b) => { return b.likes - a.likes }).map(blog => {
+          {reduxBlogs.sort((a, b) => { return b.likes - a.likes }).map(blog => {
             if (blog.user.name === reduxUser.name) {
-              return (<Blog key={blog.id} blog={blog} loginToken={reduxUser.token}/>)
+              return (<Blog key={blog.id} blog={blog} loginToken={reduxUser.token} />)
             }
           })}
         </div>
@@ -73,16 +75,25 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h1>blogs</h1>
-      <MessageBox/>
-      {reduxUser === null ?
-        <LoginForm/> :
-        <div>{reduxUser.name} is logged!!! <Button text='logout' handleClick={signOut} /></div>
-      }
-      {reduxUser !== null && blogList()}
+    <Router>
+      <div className="container">
+        <h1>blogs</h1>
+        <MessageBox />
+        {reduxUser === null ?
+          <LoginForm /> :
+          <div>{reduxUser.name} is logged!!! <Button text='logout' handleClick={signOut} /></div>
+        }
+        <Switch>
+          <Route path="/users">
+            {reduxUser !== null && <UserListing />}
+          </Route>
+          <Route>
+            {reduxUser !== null && blogList()}
+          </Route>
+        </Switch>
 
-    </div>
+      </div>
+    </Router>
   )
 }
 
