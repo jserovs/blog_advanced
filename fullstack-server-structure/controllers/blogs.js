@@ -4,7 +4,6 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response, next) => {
-  console.log("get");
   const blogs = await Blog.find({}).populate('user', { username: 1, name: 1, id: 1 })
     .catch(error => next(error))
   response.json(blogs)
@@ -26,7 +25,6 @@ blogsRouter.post('/:id/comment', async (request, response) => {
 })
 
 blogsRouter.post('/', async (request, response, next) => {
-  console.log ("here2")
   const decodedToken = await jwt.verify(request.token, process.env.SECRET, (error, result) => {
     if (error) {
       next(error)
